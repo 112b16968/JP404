@@ -1,0 +1,38 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class JP_test {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String a = input.nextLine();
+        input.close();
+        //判斷字串長度
+        if (a.length() == 0 || a.length() > 50) {
+            return;
+        }
+        //透過迴圈 把每一個字母變成字元並判斷是不是小寫字母
+        for(int i = 0 ; i<a.length();i++){
+            if (!Character.isLowerCase(a.charAt(i))) {
+                return;
+            }
+        }   
+        //創建Map<接受的值,接受的值> 
+        Map<Character,Integer> count = new HashMap<>();  //<字元,數字>
+        for(char b :a.toCharArray()){  // 先將字串變成字元 並加入字元列表 b = 每一個a的一個字母 
+            count.put(b, count.getOrDefault(b, 0)+1); //放入Map裡面統計  (鍵,值) 當鍵有重複值+1 沒有則創建新的鍵 並且把值設1 
+        }
+        int mostNumber = 0;
+        char mostChar = ' ';
+        for (Map.Entry<Character, Integer> entry : count.entrySet()) { //將每個鍵和相對的值 同時進入迴圈
+            if (entry.getValue() > mostNumber) {  //判斷誰最多重複
+                mostNumber = entry.getValue();  
+                mostChar = entry.getKey();
+            }
+        }
+        System.out.println(mostChar);
+        System.out.println(mostNumber);
+
+        
+    }
+}
